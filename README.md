@@ -1,9 +1,6 @@
 # [DropWizard.io](http://www.dropwizard.io/) `netuitive` reporter for sending metrics to Netuitive's Linux agent. 
 
-## add bintray repository 
-Go [here ](https://bintray.com/bspindler/netuitive) and click "Set Me Up!" w/help getting the repository setup.
-
-## add `dropwizard-metrics-netuitive` to your pom
+## add `dropwizard-metrics` to your pom
 ```
 <dependency>
   <groupId>io.dropwizard.metrics</groupId>
@@ -19,7 +16,7 @@ metrics:
   frequency: 1 minute
   reporters:
       - type: netuitive
-        host: localhost
+        host: netuitive-agent
         port: 8125
 ```
 
@@ -39,10 +36,10 @@ metrics:
 
 ### Docker stack defines two containers: 
 * dropwizard:
-    * example dropwizard app w/dropwizard-metrics-netuitive reporter (requires local maven install to work) 
+    * example dropwizard app w/dropwizard-metrics-netuitive reporter (requires local gradle install to work) 
     * updated config.yml file to enable netuitive reporter
 * netuitive-agent
-    * linux agent to ship data to netuitive
+    * docker linux agent to ship data to netuitive
     * note: some environment variables need to be updated to configure the agent
 
 ![Alt](/diagram.png "containers")
@@ -55,9 +52,9 @@ This directory contains a `docker-compose.yml` file which contains a test stack 
 In that directory run: 
 
 ```
-docker-compose up -d 
+docker-compose up -d --build
 ```
-Now run your tests
+Now create and run your tests
 
 `./run_tests.sh`
 

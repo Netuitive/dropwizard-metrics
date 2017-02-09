@@ -8,7 +8,35 @@ Requires:
 * JDK (to compile java file locally)
 * [Gradle](https://gradle.org/) (for build automation)
 
-To run locally:
+To run in Docker containers:
+
+Compile the dropwizard-metrics project
+
+```
+gradle clean build
+```
+
+Compile the docker-dropwizard-example project
+
+```
+cd src/test/docker/docker-dropwizard-example
+gradle clean build
+```
+
+Edit the netuitive-agent configuration to push to your Netuitive Cloud instance
+
+```
+edit src/test/docker/docker-dropwizard-example/config.yml
+```
+
+Build and launch the docker containers
+
+```
+cd src/test/docker
+dockerRunContainers.sh
+```
+
+Alternatively, to run locally
 
 ```
 gradle run
@@ -26,7 +54,7 @@ To run docker image:
 
 ```
 gradle dockerRunImage
-./dockerRunImage.sh (requires built image)
+# ./dockerRunImage.sh (requires built image)
 ```
 
 When image is running use `boot2docker ip` to get the docker IP and `docker ps` to see the port assigned to the container port 8080, then curl `http://<dockerip>:<port>/hello` to call the dropwizard application running in the container.
