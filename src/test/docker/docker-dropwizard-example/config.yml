@@ -9,6 +9,12 @@ server:
 metrics:
   frequency: 1 minute
   reporters:
-    - type: console
-      timeZone: UTC
-      output: stdout
+    - type: netuitive
+      host: netuitive-agent
+      port: 8125
+
+      
+logging:
+  level: INFO
+  loggers:
+    io.dropwizard.metrics: INFO  

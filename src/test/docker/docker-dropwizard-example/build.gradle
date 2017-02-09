@@ -23,12 +23,20 @@ project.ext {
 
 repositories {
     mavenCentral()
+    flatDir
+    {
+    	dirs '../../../../build/libs'
+    }
 }
 
 dependencies {
     compile (
         'io.dropwizard:dropwizard-core:' + dropwizardVersion
     )
+    runtime (
+    	':dropwizard-metrics:netuitive:1.0.0',
+    	'com.netuitive:ananke:0.1.25'
+    	)
 }
 
 task oneJar(type: OneJar) {
