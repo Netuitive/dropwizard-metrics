@@ -4,6 +4,7 @@ version '1.0.0'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea' 
+apply plugin: 'eclipse' 
 
 sourceCompatibility = 1.8
 
@@ -13,13 +14,26 @@ project.ext {
 
 repositories {
     mavenCentral()
+
+}
+
+test {
+    useTestNG {
+        includeGroups 'unit', 'integration'
+        options {
+            listeners.add('org.testng.reporters.XMLReporter')
+        }
+    }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+        
+    testCompile("org.testng:testng:6.8.8")
+    testCompile("org.mockito:mockito-core:1.9.5")
 
     compile (
-            'io.dropwizard:dropwizard-core:' + dropwizardVersion
+            'io.dropwizard:dropwizard-core:' + dropwizardVersion,
+    		'com.netuitive:ananke:0.1.25'
     )
 
 }

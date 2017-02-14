@@ -22,6 +22,7 @@ project.ext {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -29,6 +30,10 @@ dependencies {
     compile (
         'io.dropwizard:dropwizard-core:' + dropwizardVersion
     )
+    runtime (
+    	"io.dropwizard.metrics:dropwizard-metrics:+",
+    	'com.netuitive:ananke:0.1.25'
+    	)
 }
 
 task oneJar(type: OneJar) {
@@ -37,14 +42,6 @@ task oneJar(type: OneJar) {
 
 task run(type:Exec, dependsOn: oneJar) {
     commandLine './go'
-}
-
-task dockerBuildImage(type:Exec, dependsOn: ["clean", "oneJar"]) {
-    commandLine './dockerBuildImage.sh'
-}
-
-task dockerRunImage(type:Exec, dependsOn: dockerBuildImage) {
-    commandLine './dockerRunImage.sh'
 }
 
 task wrapper(type: Wrapper) {
