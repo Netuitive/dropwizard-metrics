@@ -22,11 +22,8 @@ project.ext {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    flatDir
-    {
-    	dirs '../../../../build/libs'
-    }
 }
 
 dependencies {
@@ -34,7 +31,7 @@ dependencies {
         'io.dropwizard:dropwizard-core:' + dropwizardVersion
     )
     runtime (
-    	':dropwizard:metrics:1.0.0',
+    	"io.dropwizard.metrics:dropwizard-metrics:+",
     	'com.netuitive:ananke:0.1.25'
     	)
 }

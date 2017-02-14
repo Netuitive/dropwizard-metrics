@@ -44,6 +44,14 @@ metrics:
 
 ![Alt](/diagram.png "containers")
 
+To run the example application and Netuitive Docker agent run the following:
+
+```
+docker-compose up -d
+```
+
+Docker will build the **dropwizard-metrics** and example project within the container from source and run the Netuitive Docker agent alongside it.
+
 ### Running the tests
 ```
 cd src/test/docker;
