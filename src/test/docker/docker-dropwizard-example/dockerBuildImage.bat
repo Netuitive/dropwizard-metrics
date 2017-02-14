@@ -1,1 +1,0 @@
-docker build -t example/dropwizard:latest .

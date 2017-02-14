@@ -1,1 +1,0 @@
-docker run -d -P example/dropwizard

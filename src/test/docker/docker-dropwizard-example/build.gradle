@@ -44,14 +44,6 @@ task run(type:Exec, dependsOn: oneJar) {
     commandLine './go'
 }
 
-task dockerBuildImage(type:Exec, dependsOn: ["clean", "oneJar"]) {
-    commandLine './dockerBuildImage.sh'
-}
-
-task dockerRunImage(type:Exec, dependsOn: dockerBuildImage) {
-    commandLine './dockerRunImage.sh'
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
 }
