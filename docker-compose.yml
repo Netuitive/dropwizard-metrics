@@ -1,7 +1,7 @@
 version: '2'
 services:
   dropwizard:
-    build: ./docker-dropwizard-example/
+    build: .
     container_name: dropwizard
     image: example/dropwizard
     links:
