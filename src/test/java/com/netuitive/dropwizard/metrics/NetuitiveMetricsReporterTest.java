@@ -1,4 +1,4 @@
-package io.dropwizard.metrics;
+package com.netuitive.dropwizard.metrics;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

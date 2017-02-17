@@ -1,9 +1,12 @@
-package io.dropwizard.metrics;
+package com.netuitive.dropwizard.metrics;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.ScheduledReporter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import io.dropwizard.metrics.BaseReporterFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

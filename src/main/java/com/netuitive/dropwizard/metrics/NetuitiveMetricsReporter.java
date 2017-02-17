@@ -1,4 +1,4 @@
-package io.dropwizard.metrics;
+package com.netuitive.dropwizard.metrics;
 
 import java.net.SocketException;
 import java.util.Map;
