@@ -54,6 +54,13 @@ distTar{
 distZip{
   from 'build/libs'
 }
+
+task zipInstall {
+    dependsOn 'distZip'
+    dependsOn 'install'
+    tasks.findByName('install').mustRunAfter 'distZip'
+}
+
 modifyPom {
 project {
                name 'dropwizard-metrics'

@@ -11,7 +11,7 @@ RUN /bin/bash gradlew compileJava
 
 ADD . /opt/app/
 
-RUN /bin/bash gradlew install
+RUN /bin/bash gradlew zipInstall
 
 WORKDIR /opt/app/src/test/docker/docker-dropwizard-example/
 
