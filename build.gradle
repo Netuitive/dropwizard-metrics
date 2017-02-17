@@ -1,10 +1,23 @@
-group 'io.dropwizard.metrics'
+group 'com.netuitive'
 version '1.0.0'
+ext.shouldSign = project.hasProperty('shouldSign') ? project.getProperty('shouldSign').toBoolean()  : false
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
+}
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea' 
 apply plugin: 'eclipse' 
+apply plugin: 'distribution'
+apply plugin: 'com.bmuschko.nexus'
 
 sourceCompatibility = 1.8
 
@@ -14,8 +27,8 @@ project.ext {
 
 repositories {
     mavenCentral()
-
 }
+
 
 test {
     useTestNG {
@@ -25,6 +38,52 @@ test {
         }
     }
 }
+
+ extraArchive {
+     sources = true
+     tests = true
+     javadoc = true
+ }
+ nexus {
+     sign = shouldSign
+ }
+
+distTar{
+  from 'build/libs'
+}
+distZip{
+  from 'build/libs'
+}
+modifyPom {
+project {
+               name 'metrics-netuitive'
+               packaging 'jar'
+               artifactId 'metrics-netuitive'
+               description 'Netuitive Reporter for Dropwizard'
+               url 'https://github.com/Netuitive/dropwizard-metrics'
+               scm {
+                   url 'https://github.com/Netuitive/dropwizard-metrics.git'
+                   connection 'https://github.com/Netuitive/dropwizard-metrics.git'
+                   developerConnection 'https://github.com/Netuitive/dropwizard-metrics.git'
+               }
+ 
+               licenses {
+                   license {
+                       name 'The Apache Software License, Version 2.0'
+                       url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                       distribution 'repo'
+                   }
+               }
+ 
+               developers {
+                   developer {
+                       id 'joepusateri'
+                       name 'Joe Pusateri'
+                   }
+               }
+           }
+}
+
 
 dependencies {
         
