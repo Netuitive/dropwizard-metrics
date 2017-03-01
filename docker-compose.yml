@@ -4,10 +4,10 @@ services:
     build: .
     container_name: dropwizard
     image: example/dropwizard
-    links:
-     - netuitive-agent
     ports:
        - "8081"
+    links:
+       - netuitive-agent
 
   netuitive-agent:
     container_name: netuitive-agent

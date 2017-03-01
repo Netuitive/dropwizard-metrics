@@ -93,7 +93,8 @@ dependencies {
 
     compile (
             'io.dropwizard:dropwizard-core:' + dropwizardVersion,
-    		'com.netuitive:ananke:0.1.25'
+    		'com.netuitive:ananke:0.1.25',
+    		'com.netuitive:iris:0.1.30'
     )
 
 }

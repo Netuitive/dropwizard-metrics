@@ -216,7 +216,7 @@ public class NetuitiveMetricsReporter extends ScheduledReporter  {
 	 */
     void pushMeter(String metricName, Metered meter)
     {
-    	pushGauge(metricName + ".count", new Double(meter.getCount()));
+    	pushCounter(metricName + ".count", meter.getCount());
     	pushGauge(metricName + ".meanRate", meter.getMeanRate());
     	pushGauge(metricName + ".1MinuteRate", meter.getOneMinuteRate());
     	pushGauge(metricName + ".5MinuteRate", meter.getFiveMinuteRate());
