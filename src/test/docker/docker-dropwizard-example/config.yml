@@ -12,7 +12,7 @@ metrics:
     - type: netuitive-rest
       apiKey: netuitive-api-key
       elementName: ApplicationName
-      apiHost: api.uat.netuitive.com 
+      apiHost: api.app.netuitive.com 
       elementType: Dropwizard      
 
       
