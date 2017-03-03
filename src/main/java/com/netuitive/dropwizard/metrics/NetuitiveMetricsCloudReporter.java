@@ -1,12 +1,8 @@
 package com.netuitive.dropwizard.metrics;
 
-import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.TimeUnit;
 
@@ -308,7 +304,6 @@ public class NetuitiveMetricsCloudReporter extends ScheduledReporter  {
     	element.getSamples().add(s);
     	
     	return element;
-
     }
 
 	/***

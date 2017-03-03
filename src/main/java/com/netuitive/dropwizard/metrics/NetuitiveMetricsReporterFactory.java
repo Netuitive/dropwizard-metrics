@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  *
  * Created by bspindler on 6/12/16.
  */
-@JsonTypeName("netuitive")
+@JsonTypeName("statsd")
 public class NetuitiveMetricsReporterFactory extends BaseReporterFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(NetuitiveMetricsReporterFactory.class);

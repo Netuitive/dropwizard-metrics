@@ -1,7 +1,8 @@
 package com.netuitive.dropwizard.metrics;
 
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.Reporter;
+import org.testng.annotations.BeforeTest;
 
 import com.codahale.metrics.Counter;
 import com.codahale.metrics.Gauge;
@@ -10,22 +11,28 @@ import com.codahale.metrics.Meter;
 import com.codahale.metrics.Metered;
 import com.codahale.metrics.Snapshot;
 import com.codahale.metrics.Timer;
+import com.netuitive.iris.entity.Element;
+import com.netuitive.iris.entity.Metric;
+import com.netuitive.iris.entity.Sample;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.TreeMap;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 @Test(groups = "unit")
-public class NetuitiveMetricsReporterTest {
+public class NetuitiveMetricsCloudReporterTest {
 	
 	@Mock
-	private NetuitiveMetricsReporter reporter;
+	private NetuitiveMetricsCloudReporter reporter;
 
 	@BeforeTest
 	public void init(){
@@ -49,21 +56,21 @@ public class NetuitiveMetricsReporterTest {
 		reporter.report(gauges, counter, histogram, meter, timer);
 		verify(reporter, times(1)).report(gauges, counter, histogram, meter, timer);
 	}
-	
+
 	@Test
-	public void testPushGauge() {
+	public void testAddMetricSampleLong() {
 		
-		reporter.pushGauge("M1",  new Double(7.0));
-		verify(reporter).pushGauge("M1", new Double(7.0));
-        
+		reporter.addMetricSample(new Element(), "M1",  new Long(7), "COUNTER");
+		verify(reporter).addMetricSample(new Element(), "M1",  new Long(7), "COUNTER");
+
 	}
 	
 	@Test
-	public void testPushCounter() {
+	public void testAddMetricSampleDouble() {
 		
-		reporter.pushCounter("M1",  new Long(7));
-		verify(reporter).pushCounter("M1", new Long(7));
-        
+		reporter.addMetricSample(new Element(), "M1",  new Double(7.1), "GAUGE");
+		verify(reporter).addMetricSample(new Element(), "M1",  new Double(7.1), "GAUGE");
+
 	}
 	
 	@Test
@@ -119,8 +126,8 @@ public class NetuitiveMetricsReporterTest {
 			}
 			
 		};
-		reporter.pushSnapshot("M1",  s);
-		verify(reporter).pushSnapshot("M1", s);
+		reporter.pushSnapshot(new Element(), "M1",  s);
+		verify(reporter).pushSnapshot(new Element(), "M1", s);
         
 	}
 	
@@ -160,8 +167,8 @@ public class NetuitiveMetricsReporterTest {
 					}
 			
 				};
-		reporter.pushMeter("M1",  m);
-		verify(reporter).pushMeter("M1", m);
+				reporter.pushMeter(new Element(), "M1",  m);
+				verify(reporter).pushMeter(new Element(), "M1", m);
         
 	}
 }

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 
-@JsonTypeName("netuitive-cloud")
+@JsonTypeName("netuitive-rest")
 public class NetuitiveMetricsCloudReporterFactory extends BaseReporterFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(NetuitiveMetricsCloudReporterFactory.class);

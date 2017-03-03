@@ -9,11 +9,11 @@ server:
 metrics:
   frequency: 1 minute
   reporters:
-    - type: netuitive-cloud
+    - type: netuitive-rest
       apiKey: netuitive-api-key
       elementName: ApplicationName
-      elementType: Dropwizard
-      apiHost: api.app.netuitive.com      
+      apiHost: api.uat.netuitive.com 
+      elementType: Dropwizard      
 
       
 logging:

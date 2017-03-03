@@ -31,11 +31,12 @@ repositories {
 
 
 test {
-    useTestNG {
+    useTestNG() {
         includeGroups 'unit', 'integration'
         options {
             listeners.add('org.testng.reporters.XMLReporter')
         }
+        suites 'src/test/resources/testng.xml'
     }
 }
 
