@@ -77,19 +77,17 @@ public class NetuitiveMetricsCloudReporterFactory extends BaseReporterFactory {
     @Override
     public ScheduledReporter build(MetricRegistry registry) {
 
-    		String apiKey = getApiKey();
-    		String apiHost = getApiHost();
-    		String elementName = getElementName();
-    		String elementType = getElementType();
-	        LOG.info("Building NetuitiveMetricsCloudReporter for apiKey: {}, apiHost: {}, elementName: {}, elementType: {}.", apiKey, apiHost, elementName, elementType);
-	    	
-	        NetuitiveMetricsCloudReporter.Builder builder = NetuitiveMetricsCloudReporter.forRegistry(registry)
-	                                                   .convertDurationsTo(getDurationUnit())
-	                                                   .convertRatesTo(getRateUnit())
-	                                                   .filter(getFilter());
-	
-	        return builder.build(apiKey, apiHost, elementName, elementType);
-    		
-
+            String apiKey = getApiKey();
+            String apiHost = getApiHost();
+            String elementName = getElementName();
+            String elementType = getElementType();
+            LOG.info("Building NetuitiveMetricsCloudReporter for apiKey: {}, apiHost: {}, elementName: {}, elementType: {}.", apiKey, apiHost, elementName, elementType);
+            
+            NetuitiveMetricsCloudReporter.Builder builder = NetuitiveMetricsCloudReporter.forRegistry(registry)
+                                                       .convertDurationsTo(getDurationUnit())
+                                                       .convertRatesTo(getRateUnit())
+                                                       .filter(getFilter());
+    
+            return builder.build(apiKey, apiHost, elementName, elementType);
     }
 }
