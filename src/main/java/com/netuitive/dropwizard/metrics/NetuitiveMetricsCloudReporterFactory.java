@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import io.dropwizard.metrics.BaseReporterFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,55 +20,24 @@ public class NetuitiveMetricsCloudReporterFactory extends BaseReporterFactory {
     private static final Logger LOG = LoggerFactory.getLogger(NetuitiveMetricsCloudReporterFactory.class);
 
     @NotNull
-    private String apiKey;
-
+    @Getter @Setter
     @JsonProperty
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    @JsonProperty
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
+   private String apiKey;
 
     @NotNull
+    @Getter @Setter
+    @JsonProperty
     private String elementName;
 
-    @JsonProperty
-    public String getElementName() {
-        return elementName;
-    }
 
+    @Getter @Setter
     @JsonProperty
-    public void setElementName(String elementName) {
-        this.elementName = elementName;
-    }
-
     private String elementType;
 
+    @NotNull
+    @Getter @Setter
     @JsonProperty
-    public String getElementType() {
-        return elementType;
-    }
-
-    @JsonProperty
-    public void setElementType(String elementType) {
-        this.elementType = elementType;
-    }
-
     private String apiHost;
-
-    @JsonProperty
-    public String getApiHost() {
-        return apiHost;
-    }
-
-    @JsonProperty
-    public void setApiHost(String apiHost) {
-        this.apiHost = apiHost;
-    }
-
 
     /**
      * Configures and builds a {@link ScheduledReporter} instance for the given registry.
@@ -82,12 +53,17 @@ public class NetuitiveMetricsCloudReporterFactory extends BaseReporterFactory {
             String elementName = getElementName();
             String elementType = getElementType();
             LOG.info("Building NetuitiveMetricsCloudReporter for apiKey: {}, apiHost: {}, elementName: {}, elementType: {}.", apiKey, apiHost, elementName, elementType);
-            
-            NetuitiveMetricsCloudReporter.Builder builder = NetuitiveMetricsCloudReporter.forRegistry(registry)
-                                                       .convertDurationsTo(getDurationUnit())
-                                                       .convertRatesTo(getRateUnit())
-                                                       .filter(getFilter());
-    
-            return builder.build(apiKey, apiHost, elementName, elementType);
+
+            NetuitiveMetricsCloudReporter.NetuitiveMetricsCloudReporterBuilder builder = new NetuitiveMetricsCloudReporter.NetuitiveMetricsCloudReporterBuilder();
+            return builder
+                    .registry(registry)
+                    .durationUnit(getDurationUnit())
+                    .rateUnit(getRateUnit())
+                    .filter(getFilter())
+                    .apiKey(apiKey)
+                    .apiHost(apiHost)
+                    .elementName(elementName)
+                    .elementType(elementType)
+                    .build();
     }
 }

@@ -6,8 +6,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.concurrent.NotThreadSafe;
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,8 @@ import com.netuitive.iris.entity.Element;
 import com.netuitive.iris.entity.Metric;
 import com.netuitive.iris.entity.Sample;
 
+import lombok.Builder;
+
 public class NetuitiveMetricsCloudReporter extends ScheduledReporter  {
 
     private static final Logger LOG = LoggerFactory.getLogger(NetuitiveMetricsCloudReporter.class);
@@ -39,6 +40,7 @@ public class NetuitiveMetricsCloudReporter extends ScheduledReporter  {
     private final String elementType;
     private NetuitiveIngestMetricRestClient client;
     
+    @Builder
     private NetuitiveMetricsCloudReporter(MetricRegistry registry,
                             String apiKey, 
                             String apiHost, 
@@ -49,96 +51,13 @@ public class NetuitiveMetricsCloudReporter extends ScheduledReporter  {
                             MetricFilter filter) {
         super(registry, "netuitive-cloud-reporter", filter, rateUnit, durationUnit);
         this.apiKey = apiKey;
-        this.apiHost = (apiHost == null || apiHost.length() == 0 ? AbstractRestClient.API_HOST : apiHost);
+        this.apiHost = (StringUtils.isBlank(apiHost) ? AbstractRestClient.API_HOST : apiHost);
         this.elementName = elementName;
-        this.elementType = (elementType == null || elementType.length() == 0 ? "Dropwizard" : elementType);
+        this.elementType = (StringUtils.isBlank(elementType) ? "Dropwizard" : elementType);
 
         client = new NetuitiveIngestMetricRestClient(AbstractRestClient.SCHEME, this.apiHost, this.apiKey);
     }
 
-    /**
-     * Returns a new {@link Builder} for {@link NetuitiveMetricsCloudReporter}.
-     *
-     * @param registry the registry to report
-     * @return a {@link Builder} instance for a {@link NetuitiveMetricsCloudReporter}
-     */
-    public static Builder forRegistry(final MetricRegistry registry) {
-        return new Builder(registry);
-    }
-
-    /**
-     * A builder for {@link NetuitiveMetricsCloudReporter} instances.
-     */
-    @NotThreadSafe
-    public static final class Builder {
-
-        private final MetricRegistry registry;
-        private TimeUnit rateUnit;
-        private TimeUnit durationUnit;
-        private MetricFilter filter;
-
-        private Builder (MetricRegistry registry) {
-            this.registry = registry;
-            this.rateUnit = TimeUnit.SECONDS;
-            this.durationUnit = TimeUnit.MILLISECONDS;
-            this.filter = MetricFilter.ALL;
-        }
-
-        /**
-         * Convert rates to the given time unit.
-         *
-         * @param _rateUnit a unit of time
-         * @return {@code this}
-         */
-        public Builder convertRatesTo(final TimeUnit _rateUnit) {
-            this.rateUnit = _rateUnit;
-            return this;
-        }
-
-        /**
-         * Convert durations to the given time unit.
-         *
-         * @param _durationUnit a unit of time
-         * @return {@code this}
-         */
-        public Builder convertDurationsTo(final TimeUnit _durationUnit) {
-            this.durationUnit = _durationUnit;
-            return this;
-        }
-
-        /**
-         * Only report metrics which match the given filter.
-         *
-         * @param _filter a {@link MetricFilter}
-         * @return {@code this}
-         */
-        public Builder filter(final MetricFilter _filter) {
-            this.filter = _filter;
-            return this;
-        }
-
-        /**
-         * Builds a {@link NetuitiveMetricsCloudReporter} with the given properties, sending metrics to Netuitive Cloud using the API key.
-         *
-         * @param apiKey the API key of the Netuitive Cloud Datasource.
-         * @param apiHost the host name of the Netuitive Cloud API endpoint. (optional)
-         * @param elementName the element name to be updated
-         * @param elementType the element type of the element. (optional)
-         * 
-         * @return a {@link NetuitiveMetricsCloudReporter}
-         */
-        public NetuitiveMetricsCloudReporter build(final String apiKey, final String apiHost, final String elementName, final String elementType) {
-            return new NetuitiveMetricsCloudReporter(registry, 
-                                                apiKey, 
-                                                apiHost, 
-                                                elementName,
-                                                elementType,
-                                                this.rateUnit, 
-                                                this.durationUnit, 
-                                                this.filter);
-        }
-
-    }
 
     /**
      * Called periodically by the polling thread. Subclasses should report all the given metrics.

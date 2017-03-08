@@ -95,7 +95,8 @@ dependencies {
     compile (
             'io.dropwizard:dropwizard-core:' + dropwizardVersion,
     		'com.netuitive:ananke:0.1.25',
-    		'com.netuitive:iris:0.1.30'
+    		'com.netuitive:iris:0.1.30',
+    		'org.projectlombok:lombok:1.16.2'
     )
 
 }
