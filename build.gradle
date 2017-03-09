@@ -58,9 +58,9 @@ distZip{
 
 modifyPom {
 project {
-               name 'dropwizard-metrics'
+               name 'dropwizard-metrics-netuitive'
                packaging 'jar'
-               artifactId 'dropwizard-metrics'
+               artifactId 'dropwizard-metrics-netuitive'
                description 'Netuitive Reporter for Dropwizard'
                url 'https://github.com/Netuitive/dropwizard-metrics'
                scm {
