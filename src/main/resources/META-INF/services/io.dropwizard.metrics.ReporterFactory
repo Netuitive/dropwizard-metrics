@@ -1,0 +1,2 @@
+com.netuitive.dropwizard.metrics.NetuitiveMetricsReporterFactory
+com.netuitive.dropwizard.metrics.NetuitiveMetricsCloudReporterFactory

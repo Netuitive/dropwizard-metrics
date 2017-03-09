@@ -9,12 +9,17 @@ server:
 metrics:
   frequency: 1 minute
   reporters:
-    - type: netuitive
+    - type: netuitive-rest
+      apiKey: netuitive-api-key
+      elementName: ApplicationName
+      apiHost: api.app.netuitive.com 
+      elementType: Dropwizard      
+
+    - type: statsd
       host: netuitive-agent
       port: 8125
-
       
 logging:
   level: INFO
   loggers:
-    io.dropwizard.metrics: INFO  
+    com.netuitive.dropwizard.metrics: INFO  
