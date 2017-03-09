@@ -31,7 +31,7 @@ dependencies {
         'io.dropwizard:dropwizard-core:' + dropwizardVersion
     )
     runtime (
-    	"com.netuitive:dropwizard-metrics:+",
+    	"com.netuitive:dropwizard-metrics-netuitive:+",
     	'com.netuitive:ananke:0.1.25'
     	)
 }
